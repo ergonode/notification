@@ -10,12 +10,12 @@ namespace Ergonode\Notification\Tests\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Notification\Infrastructure\Grid\NotificationGrid;
+use Ergonode\Notification\Infrastructure\Grid\NotificationGridBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class NotificationGridTest extends TestCase
+class NotificationGridBuilderTest extends TestCase
 {
     public function testGridInit(): void
     {
@@ -26,8 +26,8 @@ class NotificationGridTest extends TestCase
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
         $language = $this->createMock(Language::class);
-        $grid = new NotificationGrid($translator);
-        $grid->init($configuration, $language);
+        $builder = new NotificationGridBuilder($translator);
+        $grid = $builder->build($configuration, $language);
 
         $this->assertNotEmpty($grid->getColumns());
     }
